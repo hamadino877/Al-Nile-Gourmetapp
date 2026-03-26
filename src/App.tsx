@@ -10,6 +10,7 @@ const Cart = lazy(() => import('@/pages/Cart'));
 const Orders = lazy(() => import('@/pages/Orders'));
 const OrderTracking = lazy(() => import('@/pages/OrderTracking'));
 const Profile = lazy(() => import('@/pages/Profile'));
+const Admin = lazy(() => import('@/pages/Admin'));
 
 function LoadingFallback() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/orders" element={<SuspenseWrap><Orders /></SuspenseWrap>} />
           <Route path="/order/:id" element={<SuspenseWrap><OrderTracking /></SuspenseWrap>} />
           <Route path="/profile" element={<SuspenseWrap><Profile /></SuspenseWrap>} />
+          <Route path="/admin" element={<SuspenseWrap><Admin /></SuspenseWrap>} />
           <Route path="*" element={
             <div className="flex flex-col items-center justify-center h-96 gap-3">
               <span className="text-5xl">🔍</span>

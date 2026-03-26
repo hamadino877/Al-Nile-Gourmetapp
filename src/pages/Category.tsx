@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useProducts } from '@/hooks/useProducts';
 import { useParams, useSearchParams } from 'react-router-dom';
 import ProductCard from '@/components/features/ProductCard';
 import { getMeatCategories, getFoodCategories, getProductsByCategory } from '@/constants/mockData';
@@ -36,6 +37,7 @@ const SECTION_INFO: Record<string, SectionInfo> = {
 };
 
 export default function Category() {
+  const { products: allProducts, loading } = useProducts();
   const { section } = useParams<{ section: string }>();
   const [searchParams] = useSearchParams();
   const isFood = section === 'food';
@@ -51,7 +53,7 @@ export default function Category() {
     }
   }, [tabParam, cats, activeTab]);
 
-  const products = getProductsByCategory(activeTab);
+  const products = allProducts.filter(p => p.categoryId === activeTab && p.isAvailable);
   const info = SECTION_INFO[section || 'meats'];
   const activeCat = cats.find((c) => c.id === activeTab);
   const headerImg = CAT_IMAGES[activeTab] || info?.fallbackImg || beefImg;

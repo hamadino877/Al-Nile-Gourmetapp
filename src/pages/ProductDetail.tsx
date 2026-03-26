@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Info, MapPin, Clock, Share2, Minus, Plus } from 'lucide-react';
 import { toast } from 'sonner';
-import { getProductById } from '@/constants/mockData';
+import { useProducts } from '@/hooks/useProducts';
 import { APP_CONFIG } from '@/constants/config';
 import { useCartStore } from '@/stores/cartStore';
 import CutTypeSelector from '@/components/features/CutTypeSelector';
@@ -11,12 +11,17 @@ import type { CutType } from '@/types';
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const product = getProductById(id || '');
+  const { products, loading } = useProducts();
+  const product = products.find(p => p.id === id);
   const addItem = useCartStore((s) => s.addItem);
 
   const [quantity, setQuantity] = useState(product?.minQuantity || 1);
   const [cutType, setCutType] = useState<CutType | undefined>();
   const [notes, setNotes] = useState('');
+
+  if (loading && products.length === 0) {
+    return <div className="p-8 text-center text-muted-foreground animate-pulse">جاري التحميل...</div>;
+  }
 
   if (!product) {
     return (

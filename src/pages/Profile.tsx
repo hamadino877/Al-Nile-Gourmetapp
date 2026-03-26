@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { User, MapPin, Phone, MessageCircle, Clock, Info, ChevronLeft } from 'lucide-react';
+import { User, MapPin, Phone, MessageCircle, Clock, Info, ChevronLeft, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { APP_CONFIG, DELIVERY_AREAS } from '@/constants/config';
 
@@ -164,9 +165,23 @@ export default function Profile() {
         </a>
       </div>
 
+      {/* Admin Link (Discrete) */}
+      <div className="pt-4 border-t border-border/40">
+        <Link 
+          to="/admin" 
+          className="flex items-center justify-between p-4 bg-secondary/50 rounded-2xl text-muted-foreground hover:text-wine transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <ShieldCheck className="size-5" />
+            <span className="text-sm font-bold">لوحة التحكم (للإدارة فقط)</span>
+          </div>
+          <ChevronLeft className="size-4" />
+        </Link>
+      </div>
+
       {/* App Version */}
-      <p className="text-center text-xs text-muted-foreground pt-2">
-        {APP_CONFIG.name} • الإصدار 1.0
+      <p className="text-center text-[10px] text-muted-foreground">
+        {APP_CONFIG.name} • الإصدار 1.1 — <span className="text-wine/60">مدعوم بنظام Supabase</span>
       </p>
     </div>
   );

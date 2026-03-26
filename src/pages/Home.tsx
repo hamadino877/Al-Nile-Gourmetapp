@@ -4,6 +4,7 @@ import ProductCard from '@/components/features/ProductCard';
 import { getMeatCategories, getFoodCategories, getFeaturedProducts, getFeaturedFood, getTotalProductCount } from '@/constants/mockData';
 import { APP_CONFIG } from '@/constants/config';
 import { useCartStore } from '@/stores/cartStore';
+import { useProducts } from '@/hooks/useProducts';
 import heroBanner from '@/assets/hero-banner.jpg';
 import secMeat from '@/assets/sec-meat.jpg';
 import secFood from '@/assets/sec-food.jpg';
@@ -39,12 +40,19 @@ const FOOD_CAT_IMAGES: Record<string, string> = {
 };
 
 export default function Home() {
+  const { products, loading } = useProducts();
   const meatCats = getMeatCategories();
   const foodCats = getFoodCategories();
-  const featured = getFeaturedProducts();
-  const featuredFood = getFeaturedFood();
+  
+  const featured = products.filter(p => ['bf_01', 'lb_01', 'rg_02', 'pt_02'].includes(p.id));
+  const featuredFood = products.filter(p => ['gr_01', 'tg_07', 'sd_01', 'pz_04', 'dk_01', 'py_05'].includes(p.id));
+  
   const orderType = useCartStore((s) => s.orderType);
   const setOrderType = useCartStore((s) => s.setOrderType);
+
+  if (loading && products.length === 0) {
+    return <div className="p-8 text-center text-muted-foreground animate-pulse">جاري تحميل المنتجات...</div>;
+  }
 
   return (
     <div className="pb-6">
