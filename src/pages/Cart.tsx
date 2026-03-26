@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import { useCartStore, getSubtotal, getDeliveryFee, getTotal } from '@/stores/cartStore';
 import { useOrderStore } from '@/stores/orderStore';
 import { APP_CONFIG } from '@/constants/config';
+import { generateWhatsAppMessage } from '@/lib/utils';
 import CartItemComponent from '@/components/features/CartItem';
 import EmptyState from '@/components/features/EmptyState';
 
@@ -30,13 +31,32 @@ export default function Cart() {
       toast.error('يرجى إدخال عنوان التوصيل');
       return;
     }
+
     const orderId = createOrder({
       items, subtotal, deliveryFee, total, orderType,
       address: orderType === 'delivery' ? address : undefined,
       phone: APP_CONFIG.phone,
     });
+
+    // Generate WhatsApp Message
+    const message = generateWhatsAppMessage({
+      orderId,
+      items,
+      subtotal,
+      deliveryFee,
+      total,
+      orderType,
+      address: orderType === 'delivery' ? address : undefined,
+      phone: APP_CONFIG.phone,
+    });
+
     clearCart();
     toast.success('تم تأكيد الطلب بنجاح!', { description: `رقم الطلب: ${orderId}` });
+    
+    // Open WhatsApp
+    const whatsappUrl = `https://wa.me/${APP_CONFIG.phone.replace(/\+/g, '')}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+
     navigate(`/order/${orderId}`);
   }
 

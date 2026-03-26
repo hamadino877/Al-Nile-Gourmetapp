@@ -4,6 +4,7 @@ import { useOrderStore } from '@/stores/orderStore';
 import { APP_CONFIG } from '@/constants/config';
 import { ORDER_STATUS_LABELS } from '@/types';
 import OrderStatusBar from '@/components/features/OrderStatusBar';
+import { generateWhatsAppMessage } from '@/lib/utils';
 
 export default function OrderTracking() {
   const { id } = useParams<{ id: string }>();
@@ -126,7 +127,16 @@ export default function OrderTracking() {
           اتصل بنا
         </a>
         <a
-          href={`${APP_CONFIG.whatsappLink}?text=${encodeURIComponent(`مرحبا، أريد الاستفسار عن الطلب ${order.id}`)}`}
+          href={`${APP_CONFIG.whatsappLink}?text=${generateWhatsAppMessage({
+            orderId: order.id,
+            items: order.items,
+            subtotal: order.subtotal,
+            deliveryFee: order.deliveryFee,
+            total: order.total,
+            orderType: order.orderType,
+            address: order.address,
+            phone: order.phone,
+          })}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 bg-green-600 text-white rounded-2xl py-3.5 font-bold text-sm hover:bg-green-700 transition-colors"
