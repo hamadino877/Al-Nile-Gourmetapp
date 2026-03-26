@@ -4,7 +4,8 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/Al-Nile-Gourmetapp/",
+  // تم تغيير المسار إلى '/' ليعمل بشكل صحيح على Vercel
+  base: "/", 
   server: {
     host: "::",
     port: 8080,
