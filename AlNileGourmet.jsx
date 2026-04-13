@@ -31,7 +31,7 @@ const rawButcher = [
 
 const rawRestaurant = [
   {section:"soups",title:"الشوربة",titleEn:"Soups",items:[
-    {ar:"شوربة عدس",en:"Lentil Soup",price:"15 درهم",img:I[21]},{ar:"شوربة لسان عصفور",en:"Orzo Soup",price:"15 درهم",img:I[22]},{ar:"شوربة كوارع",en:"Trotters Soup",price:"25 درهم",img:I[23]},
+    {ar:"شوربة عدس",en:"Lentil Soup",price:"15 درهم",img:I[64]},{ar:"شوربة لسان عصفور",en:"Orzo Soup",price:"15 درهم",img:I[65]},{ar:"شوربة كوارع",en:"Trotters Soup",price:"25 درهم",img:I[63]},
   ]},
   {section:"salads",title:"السلطات والمقبلات",titleEn:"Salads",items:[
     {ar:"سلطة بلدي",en:"Baladi Salad",price:"15 درهم",img:I[24]},{ar:"حمص",en:"Hummus",price:"20 درهم",img:I[25]},{ar:"بابا غنوج",en:"Baba Ghanoush",price:"20 درهم",img:I[26]},{ar:"طحينة",en:"Tahini",price:"18 درهم",img:I[27]},{ar:"تومية",en:"Toum",price:"18 درهم",img:I[28]},
